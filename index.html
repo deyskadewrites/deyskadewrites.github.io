@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deys Kade — Professional Content Writer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================
+   CSS CUSTOM PROPERTIES — THEME ENGINE
+========================================= */
+:root {
+  --obsidian: #0d1117;
+  --obsidian2: #161b22;
+  --obsidian3: #21262d;
+  --cream: #e8e6e1;
+  --cream2: #f0ede8;
+  --mid: #8b949e;
+  --border-strength: 0.12;
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] {
+  --bg: var(--obsidian);
+  --bg2: var(--obsidian2);
+  --bg3: var(--obsidian3);
+  --text: var(--cream);
+  --text2: var(--cream2);
+  --muted: var(--mid);
+  --border: rgba(232,230,225,0.12);
+  --border-hover: rgba(232,230,225,0.28);
+  --glow: rgba(232,230,225,0.06);
+  --glow-strong: rgba(232,230,225,0.12);
+  --logo-filter: none;
+}
+
+[data-theme="light"] {
+  --bg: var(--cream2);
+  --bg2: #e0ddd8;
+  --bg3: #d8d5cf;
+  --text: var(--obsidian);
+  --text2: #1a1f2a;
+  --muted: #6a7080;
+  --border: rgba(13,17,23,0.1);
+  --border-hover: rgba(13,17,23,0.25);
+  --glow: rgba(13,17,23,0.04);
+  --glow-strong: rgba(13,17,23,0.08);
+  --logo-filter: invert(1);
+}
+
+/* =========================================
+   RESET & BASE
+========================================= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.5s var(--ease-premium), color 0.5s var(--ease-premium);
+}
+
+/* Subtle noise texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================================
+   THEME TOGGLE — STICKY
+========================================= */
+.theme-toggle {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s var(--ease-premium);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  border-color: var(--border-hover);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+.theme-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.6s var(--ease-premium), opacity 0.3s ease;
+  color: var(--text);
+}
+
+.theme-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+[data-theme="dark"] .icon-moon { display: block; }
+[data-theme="dark"] .icon-sun  { display: none; }
+[data-theme="light"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun  { display: block; }
+
+/* =========================================
+   STAGGERED ENTRANCE ANIMATIONS
+========================================= */
+@keyframes driftUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.anim { opacity: 0; animation: driftUp 0.9s var(--ease-premium) forwards; }
+.anim-1 { animation-delay: 0.05s; }
+.anim-2 { animation-delay: 0.18s; }
+.anim-3 { animation-delay: 0.32s; }
+.anim-4 { animation-delay: 0.46s; }
+.anim-5 { animation-delay: 0.60s; }
+.anim-6 { animation-delay: 0.74s; }
+
+/* =========================================
+   HERO
+========================================= */
+.hero {
+  text-align: center;
+  padding: 80px 0 56px;
+}
+
+.logo-wrap {
+  display: inline-block;
+  margin-bottom: 32px;
+}
+
+.logo-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.logo-word {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 12vw, 80px);
+  letter-spacing: 0.08em;
+  color: var(--text);
+  line-height: 1;
+  transition: color 0.5s var(--ease-premium);
+}
+
+.logo-divider {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 6px 0;
+}
+
+.logo-line {
+  height: 2px;
+  background: var(--text);
+  opacity: 0.7;
+  border-radius: 2px;
+  transition: background 0.5s var(--ease-premium);
+}
+
+.hero-tagline {
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.hero-sub {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 300;
+  letter-spacing: 1.5px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   SECTION DIVIDER — LOGO MOTIF
+========================================= */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 40px 0;
+}
+
+.divider-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.divider-lines span {
+  display: block;
+  height: 1.5px;
+  background: var(--border-hover);
+  border-radius: 2px;
+  transition: background 0.5s ease;
+}
+
+.divider-label {
+  font-size: 9px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+/* =========================================
+   INSTAGRAM BUTTON
+========================================= */
+.ig-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 32px;
+  border: 1px solid var(--border-hover);
+  background: transparent;
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.5s var(--ease-premium);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.ig-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--glow-strong);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.ig-btn:hover::before { opacity: 1; }
+.ig-btn:hover { border-color: var(--text); transform: translateY(-2px); }
+.ig-btn:active { transform: translateY(1px) scale(0.98); }
+.ig-btn svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+/* =========================================
+   SAMPLE WORK BUTTON
+========================================= */
+.sample-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 24px;
+  border: 1px solid var(--border-hover);
+  background: var(--glow);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.4s var(--ease-premium);
+  position: relative;
+  overflow: hidden;
+}
+
+.sample-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--glow-strong);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.sample-btn:hover::before { opacity: 1; }
+.sample-btn:hover { border-color: var(--text); transform: translateY(-2px); }
+.sample-btn:active { transform: translateY(1px) scale(0.98); }
+
+.sample-btn-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.sample-arrow {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.sample-btn:hover .sample-arrow { transform: translate(2px, -2px); }
+
+/* =========================================
+   DELIVERY OPTION SELECT BUTTONS
+========================================= */
+.rush-row, .standard-row {
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  padding: 10px 10px;
+  margin: 3px 0;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  border: 1px solid transparent;
+  gap: 0;
+  position: relative;
+}
+
+/* Full-area click target overlay */
+.rush-row::after, .standard-row::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+.rush-row span, .standard-row span {
+  pointer-events: none;
+}
+
+.rush-row .delivery-select, .standard-row .delivery-select {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.rush-row span:first-of-type, .standard-row span:first-of-type {
+  flex: 1;
+}
+
+.rush-row:hover, .standard-row:hover { background: var(--glow); }
+
+.rush-row.rush-selected, .standard-row.rush-selected {
+  background: var(--glow-strong);
+  border-color: var(--border-hover);
+}
+
+.delivery-select {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.25s var(--ease-premium);
+  margin-right: 10px;
+  pointer-events: none;
+}
+
+.delivery-select::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.rush-selected .delivery-select {
+  border-color: var(--text);
+}
+
+.rush-selected .delivery-select::after {
+  opacity: 1;
+}
+
+/* =========================================
+   SERVICE TABS — SCROLLABLE PILL ROW
+========================================= */
+.tabs-wrap {
+  overflow-x: auto;
+  padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabs-wrap::-webkit-scrollbar { display: none; }
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  width: max-content;
+  padding: 4px 2px;
+}
+
+.tab {
+  flex-shrink: 0;
+  padding: 9px 18px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.35s var(--ease-premium);
+  white-space: nowrap;
+  position: relative;
+}
+
+.tab:hover {
+  border-color: var(--border-hover);
+  color: var(--text);
+}
+
+.tab.active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+
+/* =========================================
+   PANEL TRANSITIONS — FADE & SLIDE
+========================================= */
+.panels-container { position: relative; min-height: 100px; }
+
+.service-panel {
+  display: none;
+  animation: panelIn 0.45s var(--ease-premium) both;
+}
+
+.service-panel.active { display: block; }
+.service-panel.leaving {
+  display: block;
+  animation: panelOut 0.25s ease forwards;
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+}
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes panelOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
+}
+
+/* =========================================
+   BENTO GRID — SERVICE CARDS
+========================================= */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 560px) {
+  .pricing-grid.two-col { grid-template-columns: 1fr 1fr; }
+}
+
+.card {
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  background: var(--bg2);
+  position: relative;
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  transition:
+    transform 0.5s var(--ease-premium),
+    box-shadow 0.5s var(--ease-premium),
+    border-color 0.4s ease,
+    background 0.5s ease;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--glow);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-premium);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  border-color: var(--border-hover);
+}
+
+.card:hover::before { opacity: 1; }
+
+.card.featured {
+  border-color: var(--border-hover);
+}
+
+.card.selected {
+  border-color: var(--text) !important;
+  box-shadow: 0 0 0 1px var(--text), 0 20px 60px rgba(0,0,0,0.4) !important;
+  transform: translateY(-6px);
+}
+
+.card-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  font-weight: 700;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.card-header-left { display: flex; align-items: center; gap: 12px; }
+
+.select-indicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s var(--ease-premium);
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--bg);
+}
+
+.card.selected .select-indicator {
+  background: var(--text);
+  border-color: var(--text);
+}
+
+.card.selected .select-indicator::after {
+  content: '✓';
+  color: var(--bg);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: var(--text);
+}
+
+.card-price {
+  text-align: right;
+}
+
+.card-price .amount {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  color: var(--text);
+  line-height: 1;
+}
+
+.card-price .currency {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  display: block;
+  margin-top: 2px;
+}
+
+.card-details {
+  list-style: none;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  line-height: 2;
+  margin-bottom: 18px;
+  padding-left: 30px;
+}
+
+.card-details li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-details li::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--muted);
+  flex-shrink: 0;
+  display: block;
+}
+
+.delivery-box {
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  padding-left: 0;
+}
+
+.delivery-title {
+  font-size: 8px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.delivery-row {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.delivery-row .price-tag { color: var(--text); font-weight: 600; font-size: 11px; }
+.delivery-row .included { color: var(--text); font-size: 9px; letter-spacing: 2px; font-weight: 600; text-transform: uppercase; }
+
+/* =========================================
+   CUSTOM CTA
+========================================= */
+.custom-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 24px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.4s var(--ease-premium);
+  margin-bottom: 56px;
+}
+
+.custom-btn:hover {
+  border-color: var(--text);
+  background: var(--glow);
+  transform: translateX(4px);
+}
+
+.custom-btn:active { transform: scale(0.98); }
+.custom-arrow { font-size: 20px; transition: transform 0.3s ease; }
+.custom-btn:hover .custom-arrow { transform: translateX(4px); }
+
+/* =========================================
+   ORDER FORM — FLOATING LABELS
+========================================= */
+.order-section {
+  padding: 64px 0;
+  border-top: 1px solid var(--border);
+}
+
+.order-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 8vw, 52px);
+  letter-spacing: 4px;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.order-sub {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 3px;
+  text-align: center;
+  margin-bottom: 44px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Progress bar */
+.form-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 36px;
+  padding: 0 4px;
+}
+
+.progress-step {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  border-radius: 2px;
+  transition: background 0.5s var(--ease-premium);
+}
+
+.progress-step.done { background: var(--text); }
+.progress-label {
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+/* Selected banner */
+.selected-banner {
+  display: none;
+  background: var(--glow-strong);
+  border: 1px solid var(--border-hover);
+  padding: 14px 20px;
+  margin-bottom: 28px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text);
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  animation: driftUp 0.4s var(--ease-premium) both;
+}
+
+/* Floating label field */
+.field {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.field-label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  pointer-events: none;
+  transition: all 0.3s var(--ease-premium);
+  background: var(--bg2);
+  padding: 0 4px;
+}
+
+.field.textarea-field .field-label {
+  top: 18px;
+  transform: none;
+}
+
+.field-input, .field-textarea {
+  width: 100%;
+  padding: 18px 16px 6px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+  outline: none;
+  transition: all 0.35s var(--ease-premium);
+  border-radius: 0;
+}
+
+.field-input:focus, .field-textarea:focus {
+  border-color: var(--text);
+  box-shadow: 0 0 0 1px var(--border-hover);
+}
+
+.field-input:focus + .field-label,
+.field-input:not(:placeholder-shown) + .field-label,
+.field-textarea:focus + .field-label,
+.field-textarea:not(:placeholder-shown) + .field-label {
+  top: 8px;
+  transform: none;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--text);
+}
+
+.field-input::placeholder, .field-textarea::placeholder { color: transparent; }
+
+.field-textarea {
+  resize: vertical;
+  min-height: 100px;
+  padding-top: 22px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* Submit */
+.submit-btn {
+  width: 100%;
+  padding: 20px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s var(--ease-premium);
+  margin-top: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.15);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.submit-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+.submit-btn:active::after { opacity: 1; }
+.submit-btn:active { transform: translateY(1px) scale(0.99); box-shadow: none; }
+
+.form-note {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-align: center;
+  margin-top: 16px;
+  line-height: 1.8;
+}
+
+/* Success */
+.success-msg {
+  display: none;
+  text-align: center;
+  padding: 48px 32px;
+  border: 1px solid var(--border-hover);
+  background: var(--glow);
+  animation: driftUp 0.6s var(--ease-premium) both;
+}
+
+.success-msg h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  letter-spacing: 4px;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.success-msg p {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  line-height: 2;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+.footer {
+  text-align: center;
+  padding: 24px 0 48px;
+  border-top: 1px solid var(--border);
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+@media (max-width: 480px) {
+  .hero { padding: 60px 0 40px; }
+  .logo-word { font-size: 52px; }
+  .theme-toggle { top: 16px; right: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- THEME TOGGLE -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+  <div class="theme-icon">
+    <div class="icon-moon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </div>
+    <div class="icon-sun">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</button>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="logo-wrap anim anim-1">
+      <div class="logo-type">
+        <div class="logo-word">DEYS</div>
+        <div class="logo-divider">
+          <div class="logo-line"></div>
+          <div class="logo-line"></div>
+        </div>
+        <div class="logo-word">KADE</div>
+      </div>
+    </div>
+
+    <div class="hero-tagline anim anim-2">Professional Content Writer</div>
+    <div class="hero-sub anim anim-2">Your idea. My words. Any niche.</div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider anim anim-4">
+    <div class="divider-lines"><span></span><span></span></div>
+    <div class="divider-label">Services &amp; Pricing</div>
+    <div class="divider-lines"><span></span><span></span></div>
+  </div>
+
+  <!-- SAMPLE WORK BUTTON -->
+  <div class="anim anim-4" style="margin-bottom:24px;">
+    <a href="https://deyskadeswrites.github.io" target="_blank" class="sample-btn">
+      <div class="sample-btn-left">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span>View Sample Work</span>
+      </div>
+      <span class="sample-arrow">↗</span>
+    </a>
+  </div>
+
+  <div class="anim anim-4" style="text-align:center; font-size:9px; letter-spacing:3px; color:var(--muted); text-transform:uppercase; font-weight:600; margin-bottom:20px;">Select a service — tap a card</div>
+
+  <!-- SERVICE TABS -->
+  <div class="tabs-wrap anim anim-5">
+    <div class="tabs">
+      <button class="tab active" data-service="ebook">E-Books</button>
+      <button class="tab" data-service="script">Video Scripts</button>
+      <button class="tab" data-service="blog">Blog Writing</button>
+      <button class="tab" data-service="email">Newsletters</button>
+      <button class="tab" data-service="social">Captions</button>
+      <button class="tab" data-service="product">Descriptions</button>
+      <button class="tab" data-service="podcast">Podcasts</button>
+      <button class="tab" data-service="adcopy">Ad Copy</button>
+      <button class="tab" data-service="twitter">X Threads</button>
+      <button class="tab" data-service="webcopy">Website Copy</button>
+    </div>
+  </div>
+
+  <!-- PANELS -->
+  <div class="panels-container anim anim-6" style="margin-top:28px;">
+
+    <!-- E-BOOKS -->
+    <div class="service-panel active" id="panel-ebook">
+      <div class="pricing-grid">
+        <div class="card" data-package="Starter — 1 E-Book ($299 USD)" data-service="ebook">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Starter</div></div>
+            <div class="card-price"><div class="amount">$299</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>1 Professional E-Book</li>
+            <li>Up to 15,000 words</li>
+            <li>Any topic, any niche</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 10 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 5 days</span><span class="price-tag">+$100</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Express — 3 days</span><span class="price-tag">+$200</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>24 Hours</span><span class="price-tag">+$350</span></div>
+          </div>
+        </div>
+        <div class="card" data-package="Bundle — 3 E-Books ($799 USD)" data-service="ebook">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Bundle</div></div>
+            <div class="card-price"><div class="amount">$799</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>3 Professional E-Books</li>
+            <li>Up to 15,000 words each</li>
+            <li>Any topic, any niche</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 25 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 15 days</span><span class="price-tag">+$250</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Express — 10 days</span><span class="price-tag">+$450</span></div>
+          </div>
+        </div>
+        <div class="card featured" data-package="Full Package — 5 E-Books ($1,499 USD)" data-service="ebook">
+          <div class="card-badge">Best Value</div>
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Full Package</div></div>
+            <div class="card-price"><div class="amount">$1,499</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>5 Professional E-Books</li>
+            <li>Up to 15,000 words each</li>
+            <li>Any topic, any niche</li>
+            <li>Revisions included</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 40 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 25 days</span><span class="price-tag">+$400</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Express — 15 days</span><span class="price-tag">+$700</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO SCRIPTS -->
+    <div class="service-panel" id="panel-script">
+      <div class="pricing-grid two-col">
+        <div class="card" data-package="Single Script — 1 Video Script ($99 USD)" data-service="script">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Single Script</div></div>
+            <div class="card-price"><div class="amount">$99</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>1 Professional Script</li>
+            <li>Up to 3,000 words</li>
+            <li>YouTube, TikTok, Reels</li>
+            <li>Any topic, any niche</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 3 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 24 hours</span><span class="price-tag">+$50</span></div>
+          </div>
+        </div>
+        <div class="card featured" data-package="Script Bundle — 5 Video Scripts ($399 USD)" data-service="script">
+          <div class="card-badge">Best Value</div>
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Script Bundle</div></div>
+            <div class="card-price"><div class="amount">$399</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>5 Professional Scripts</li>
+            <li>Up to 3,000 words each</li>
+            <li>Any topic, any niche</li>
+            <li>Revisions included</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 10 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 5 days</span><span class="price-tag">+$150</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOG -->
+    <div class="service-panel" id="panel-blog">
+      <div class="pricing-grid">
+        <div class="card" data-package="Single Blog Post ($79 USD)" data-service="blog">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Single Post</div></div>
+            <div class="card-price"><div class="amount">$79</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>1 Professional Blog Post</li>
+            <li>Up to 2,000 words</li>
+            <li>SEO optimized</li>
+            <li>Any topic, any niche</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 3 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 24 hours</span><span class="price-tag">+$40</span></div>
+          </div>
+        </div>
+        <div class="card" data-package="Blog Bundle — 5 Posts ($299 USD)" data-service="blog">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Blog Bundle</div></div>
+            <div class="card-price"><div class="amount">$299</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>5 Blog Posts</li>
+            <li>Up to 2,000 words each</li>
+            <li>SEO optimized</li>
+            <li>Any topic, any niche</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 12 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 7 days</span><span class="price-tag">+$100</span></div>
+          </div>
+        </div>
+        <div class="card featured" data-package="Blog Package — 10 Posts ($499 USD)" data-service="blog">
+          <div class="card-badge">Best Value</div>
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Blog Package</div></div>
+            <div class="card-price"><div class="amount">$499</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>10 Blog Posts</li>
+            <li>Up to 2,000 words each</li>
+            <li>SEO optimized throughout</li>
+            <li>Revisions included</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 25 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 15 days</span><span class="price-tag">+$200</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL NEWSLETTERS -->
+    <div class="service-panel" id="panel-email">
+      <div class="pricing-grid two-col">
+        <div class="card" data-package="Single Newsletter ($59 USD)" data-service="email">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Single Issue</div></div>
+            <div class="card-price"><div class="amount">$59</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>1 Professional Newsletter</li>
+            <li>Up to 800 words</li>
+            <li>Engagement optimized</li>
+            <li>Any niche</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 2 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 12 hours</span><span class="price-tag">+$30</span></div>
+          </div>
+        </div>
+        <div class="card featured" data-package="Newsletter Bundle — 5 Issues ($249 USD)" data-service="email">
+          <div class="card-badge">Best Value</div>
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Newsletter Bundle</div></div>
+            <div class="card-price"><div class="amount">$249</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>5 Professional Newsletters</li>
+            <li>Up to 800 words each</li>
+            <li>Consistent brand voice</li>
+            <li>Revisions included</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 10 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 5 days</span><span class="price-tag">+$75</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL CAPTIONS -->
+    <div class="service-panel" id="panel-social">
+      <div class="pricing-grid two-col">
+        <div class="card" data-package="Caption Pack — 10 Captions ($49 USD)" data-service="social">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Caption Pack</div></div>
+            <div class="card-price"><div class="amount">$49</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>10 Social Media Captions</li>
+            <li>IG, FB, TikTok, LinkedIn</li>
+            <li>Hashtag sets included</li>
+            <li>Engagement hooks</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 2 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 24 hours</span><span class="price-tag">+$25</span></div>
+          </div>
+        </div>
+        <div class="card featured" data-package="Caption Bundle — 30 Captions ($129 USD)" data-service="social">
+          <div class="card-badge">Best Value</div>
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Caption Bundle</div></div>
+            <div class="card-price"><div class="amount">$129</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>30 Social Media Captions</li>
+            <li>Any platform, any niche</li>
+            <li>Hashtag sets included</li>
+            <li>Revisions included</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 7 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 3 days</span><span class="price-tag">+$50</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT DESCRIPTIONS -->
+    <div class="service-panel" id="panel-product">
+      <div class="pricing-grid two-col">
+        <div class="card" data-package="5 Product Descriptions ($79 USD)" data-service="product">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Starter Pack</div></div>
+            <div class="card-price"><div class="amount">$79</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>5 Product Descriptions</li>
+            <li>SEO optimized</li>
+            <li>Conversion focused</li>
+            <li>Any niche</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 3 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 24 hours</span><span class="price-tag">+$40</span></div>
+          </div>
+        </div>
+        <div class="card featured" data-package="20 Product Descriptions ($249 USD)" data-service="product">
+          <div class="card-badge">Best Value</div>
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Pro Pack</div></div>
+            <div class="card-price"><div class="amount">$249</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>20 Product Descriptions</li>
+            <li>SEO optimized throughout</li>
+            <li>Conversion focused</li>
+            <li>Revisions included</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 10 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 5 days</span><span class="price-tag">+$100</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PODCAST SCRIPTS -->
+    <div class="service-panel" id="panel-podcast">
+      <div class="pricing-grid two-col">
+        <div class="card" data-package="Single Podcast Script ($79 USD)" data-service="podcast">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Single Episode</div></div>
+            <div class="card-price"><div class="amount">$79</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>1 Podcast Script</li>
+            <li>Up to 3,000 words</li>
+            <li>Intro, body &amp; outro</li>
+            <li>Any topic, any niche</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 3 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 24 hours</span><span class="price-tag">+$40</span></div>
+          </div>
+        </div>
+        <div class="card featured" data-package="Podcast Bundle — 5 Episodes ($299 USD)" data-service="podcast">
+          <div class="card-badge">Best Value</div>
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Episode Bundle</div></div>
+            <div class="card-price"><div class="amount">$299</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>5 Podcast Scripts</li>
+            <li>Up to 3,000 words each</li>
+            <li>Consistent show voice</li>
+            <li>Revisions included</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 12 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 6 days</span><span class="price-tag">+$100</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- AD COPY -->
+    <div class="service-panel" id="panel-adcopy">
+      <div class="pricing-grid two-col">
+        <div class="card" data-package="Single Ad Copy ($49 USD)" data-service="adcopy">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Single Ad</div></div>
+            <div class="card-price"><div class="amount">$49</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>1 Professional Ad Copy</li>
+            <li>Facebook, Instagram or Google</li>
+            <li>Headline + body + CTA</li>
+            <li>Conversion optimized</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 24 hours</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 6 hours</span><span class="price-tag">+$25</span></div>
+          </div>
+        </div>
+        <div class="card featured" data-package="Ad Copy Bundle — 5 Ads ($199 USD)" data-service="adcopy">
+          <div class="card-badge">Best Value</div>
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Ad Bundle</div></div>
+            <div class="card-price"><div class="amount">$199</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>5 Professional Ad Copies</li>
+            <li>Any platform</li>
+            <li>A/B testing variations</li>
+            <li>Revisions included</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 3 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 24 hours</span><span class="price-tag">+$75</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- X THREADS -->
+    <div class="service-panel" id="panel-twitter">
+      <div class="pricing-grid two-col">
+        <div class="card" data-package="Single X Thread ($49 USD)" data-service="twitter">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Single Thread</div></div>
+            <div class="card-price"><div class="amount">$49</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>1 Professional X Thread</li>
+            <li>10–15 tweets per thread</li>
+            <li>Engagement optimized</li>
+            <li>Any topic, any niche</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 24 hours</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 6 hours</span><span class="price-tag">+$25</span></div>
+          </div>
+        </div>
+        <div class="card featured" data-package="Thread Bundle — 5 Threads ($199 USD)" data-service="twitter">
+          <div class="card-badge">Best Value</div>
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Thread Bundle</div></div>
+            <div class="card-price"><div class="amount">$199</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>5 Professional X Threads</li>
+            <li>10–15 tweets each</li>
+            <li>Viral hook writing</li>
+            <li>Revisions included</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 5 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 2 days</span><span class="price-tag">+$75</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEBSITE COPY -->
+    <div class="service-panel" id="panel-webcopy">
+      <div class="pricing-grid two-col">
+        <div class="card" data-package="Single Page Website Copy ($99 USD)" data-service="webcopy">
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Single Page</div></div>
+            <div class="card-price"><div class="amount">$99</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>1 Full Page of Website Copy</li>
+            <li>Homepage, About or Services</li>
+            <li>SEO optimized</li>
+            <li>Conversion focused</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 3 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 24 hours</span><span class="price-tag">+$50</span></div>
+          </div>
+        </div>
+        <div class="card featured" data-package="Full Website Copy — 5 Pages ($399 USD)" data-service="webcopy">
+          <div class="card-badge">Best Value</div>
+          <div class="card-header">
+            <div class="card-header-left"><div class="select-indicator"></div><div class="card-name">Full Website</div></div>
+            <div class="card-price"><div class="amount">$399</div><span class="currency">USD</span></div>
+          </div>
+          <ul class="card-details">
+            <li>5 Pages of Website Copy</li>
+            <li>Home, About, Services, Blog, Contact</li>
+            <li>SEO optimized throughout</li>
+            <li>Revisions included</li>
+          </ul>
+          <div class="delivery-box">
+            <div class="delivery-title">Delivery Options</div>
+            <div class="delivery-row standard-row" data-rush="false"><div class="delivery-select"></div><span>Standard — 10 days</span><span class="included">Included</span></div>
+            <div class="delivery-row rush-row" data-rush="true"><div class="delivery-select"></div><span>Rush — 5 days</span><span class="price-tag">+$150</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /panels-container -->
+
+  <a href="https://ig.me/m/deyskadewrites" target="_blank" class="custom-btn">
+    <span>Need something custom? DM me</span>
+    <span class="custom-arrow">→</span>
+  </a>
+
+  <!-- ORDER FORM -->
+  <div class="order-section" id="order-section">
+    <div class="order-heading">Place Your Order</div>
+    <div class="order-sub">Fill in the form — I'll reply within 24 hours</div>
+
+    <!-- Progress bar -->
+    <div class="form-progress">
+      <div class="progress-step" id="prog-1"></div>
+      <div class="progress-label">Package</div>
+      <div class="progress-step" id="prog-2"></div>
+      <div class="progress-label">Details</div>
+      <div class="progress-step" id="prog-3"></div>
+      <div class="progress-label">Submit</div>
+      <div class="progress-step" id="prog-4"></div>
+    </div>
+
+    <div id="selected-banner" class="selected-banner"></div>
+
+    <div id="order-form-container">
+      <form action="https://formspree.io/f/xgodvnkq" method="POST" id="order-form">
+
+        <input type="hidden" name="package" id="package-hidden">
+        <input type="hidden" name="service_type" id="service-hidden">
+
+        <div class="form-row">
+          <div class="field">
+            <input type="text" name="first_name" class="field-input" placeholder="First Name" id="f-first" required>
+            <label class="field-label" for="f-first">First Name *</label>
+          </div>
+          <div class="field">
+            <input type="text" name="last_name" class="field-input" placeholder="Last Name" id="f-last" required>
+            <label class="field-label" for="f-last">Last Name *</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <input type="email" name="email" class="field-input" placeholder="Email" id="f-email" required>
+          <label class="field-label" for="f-email">Email Address *</label>
+        </div>
+
+        <div class="field">
+          <input type="text" name="topic" class="field-input" placeholder="Topic" id="f-topic" required>
+          <label class="field-label" for="f-topic">Topic / Subject *</label>
+        </div>
+
+        <div class="field">
+          <input type="text" name="audience" class="field-input" placeholder="Audience" id="f-audience">
+          <label class="field-label" for="f-audience">Target Audience</label>
+        </div>
+
+        <div class="field textarea-field">
+          <textarea name="notes" class="field-textarea" placeholder="Notes" id="f-notes"></textarea>
+          <label class="field-label" for="f-notes">Additional Notes</label>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Place Order →</button>
+        <p class="form-note">I will contact you within 24 hours to confirm your order and discuss payment.</p>
+
+      </form>
+
+      <div class="success-msg" id="success-msg">
+        <h3>Order Received</h3>
+        <p>Thank you for your order. I will contact you at your email address within 24 hours to confirm everything and discuss payment. Looking forward to working with you.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">© 2026 Deys Kade · All rights reserved</div>
+
+</div><!-- /container -->
+
+<script>
+/* =========================================
+   THEME ENGINE
+========================================= */
+const html = document.documentElement;
+const toggle = document.getElementById('themeToggle');
+const themeIcon = toggle.querySelector('.theme-icon');
+
+const savedTheme = localStorage.getItem('dk-theme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+
+toggle.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('dk-theme', next);
+  // Rotate icon on toggle
+  themeIcon.style.transform = 'rotate(360deg)';
+  setTimeout(() => { themeIcon.style.transform = 'rotate(0deg)'; themeIcon.style.transition = 'none'; }, 600);
+  themeIcon.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+});
+
+/* =========================================
+   TAB SWITCHING — FADE & SLIDE
+========================================= */
+const tabs = document.querySelectorAll('.tab');
+let activePanel = document.querySelector('.service-panel.active');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const service = tab.dataset.service;
+    const nextPanel = document.getElementById('panel-' + service);
+    if (!nextPanel || nextPanel === activePanel) return;
+
+    // Deactivate tabs
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    // Animate out old
+    activePanel.classList.add('leaving');
+    activePanel.classList.remove('active');
+
+    setTimeout(() => {
+      if (activePanel) activePanel.classList.remove('leaving');
+
+      // Animate in new
+      nextPanel.classList.add('active');
+      activePanel = nextPanel;
+
+      // Clear selections
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+      document.getElementById('package-hidden').value = '';
+      document.getElementById('service-hidden').value = '';
+      document.getElementById('selected-banner').style.display = 'none';
+      updateProgress(0);
+    }, 260);
+  });
+});
+
+/* =========================================
+   CARD SELECTION
+========================================= */
+function getBannerText(card) {
+  const pkg = card.dataset.package;
+  const selectedDelivery = card.querySelector('.rush-row.rush-selected, .standard-row.rush-selected');
+  if (selectedDelivery) {
+    const label = selectedDelivery.querySelector('span:first-of-type');
+    const price = selectedDelivery.querySelector('.price-tag, .included');
+    if (label && price) {
+      return '✓  ' + pkg + '  ·  ' + label.textContent.trim() + ' (' + price.textContent.trim() + ')';
+    }
+  }
+  return '✓  ' + pkg;
+}
+
+function updateBannerIfSelected() {
+  const selectedCard = document.querySelector('.card.selected');
+  if (!selectedCard) return;
+  const banner = document.getElementById('selected-banner');
+  banner.textContent = getBannerText(selectedCard);
+}
+
+function selectPackage(card) {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  const pkg = card.dataset.package;
+  const svc = card.dataset.service;
+  document.getElementById('package-hidden').value = pkg;
+  document.getElementById('service-hidden').value = svc;
+  const banner = document.getElementById('selected-banner');
+  banner.style.display = 'block';
+  banner.textContent = getBannerText(card);
+  updateProgress(1);
+  // No auto-scroll here — scroll only happens when delivery option is selected
+}
+
+const panelsEl = document.querySelector('.panels-container');
+
+panelsEl.addEventListener('click', e => {
+  // Check if a delivery row was clicked first
+  const deliveryRow = e.target.closest('.rush-row, .standard-row');
+  if (deliveryRow) {
+    const deliveryBox = deliveryRow.closest('.delivery-box');
+    if (deliveryBox) {
+      deliveryBox.querySelectorAll('.rush-row, .standard-row').forEach(r => r.classList.remove('rush-selected'));
+      deliveryRow.classList.add('rush-selected');
+      updateBannerIfSelected();
+      setTimeout(() => {
+        document.getElementById('order-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+      return; // stop here, don't trigger card select
+    }
+  }
+  // Otherwise check if a card was clicked
+  const card = e.target.closest('.card');
+  if (card) selectPackage(card);
+});
+
+/* =========================================
+   PROGRESS BAR
+========================================= */
+function updateProgress(step) {
+  const steps = [1,2,3,4].map(i => document.getElementById('prog-' + i));
+  steps.forEach((s, i) => {
+    if (i < step) s.classList.add('done');
+    else s.classList.remove('done');
+  });
+}
+
+// Track form fill progress
+['f-first','f-last','f-email','f-topic'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', updateFormProgress);
+});
+
+function updateFormProgress() {
+  const pkg = document.getElementById('package-hidden').value;
+  const first = document.getElementById('f-first').value;
+  const email = document.getElementById('f-email').value;
+  const topic = document.getElementById('f-topic').value;
+  let step = 0;
+  if (pkg) step = 1;
+  if (pkg && (first || email)) step = 2;
+  if (pkg && first && email && topic) step = 3;
+  updateProgress(step);
+}
+
+document.querySelectorAll('.field-input, .field-textarea').forEach(el => {
+  el.addEventListener('input', updateFormProgress);
+});
+
+/* =========================================
+   FORM SUBMIT
+========================================= */
+const form = document.getElementById('order-form');
+const successMsg = document.getElementById('success-msg');
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!document.getElementById('package-hidden').value) {
+    const banner = document.getElementById('selected-banner');
+    banner.style.display = 'block';
+    banner.textContent = '⚠  Please select a package above first.';
+    banner.style.borderColor = 'var(--border-hover)';
+    setTimeout(() => { banner.style.borderColor = ''; }, 2000);
+    return;
+  }
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Sending...';
+  btn.style.opacity = '0.7';
+  btn.style.pointerEvents = 'none';
+  try {
+    const data = new FormData(form);
+    const response = await fetch(form.action, {
+      method: 'POST', body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+      updateProgress(4);
+    } else {
+      btn.textContent = 'Try again →';
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+    }
+  } catch {
+    btn.textContent = 'Try again →';
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
+  }
+});
+</script>
+</body>
+</html>
